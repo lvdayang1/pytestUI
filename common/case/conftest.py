@@ -1,0 +1,27 @@
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import platform
+from common.oracle import MyDB
+
+
+@pytest.fixture(scope="session", name="driver")
+def browser():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    yield driver
+    # quit是退出浏览器
+    driver.quit()
+
+
+@pytest.fixture(scope="session")
+def base_url():
+    url = ""
+    return url
+
+@pytest.fixture(scope="session")
+def db():
+    _db = MyDB()
+    _db.connectDB()
+    yield _db
+    _db.closeDB()
