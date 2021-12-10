@@ -1,0 +1,27 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="runAll.DATABASE" />
+          <option value="runAll.xxxxxx" />
+          <option value="runAll.gxkjt_rsint" />
+          <option value="runAll.HTTP" />
+          <option value="runAll.EMAIL" />
+          <option value="runAll.verify" />
+          <option value="runAll.project" />
+          <option value="runAll.rsinte" />
+          <option value="runAll.吕洋" />
+          <option value="runAll.python" />
+          <option value="runAll.xxxx" />
+          <option value="runAll.xxx" />
+          <option value="runAll.qq" />
+          <option value="runAll.com" />
+          <option value="runAll.yanglv" />
+          <option value="runAll.smtp" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
