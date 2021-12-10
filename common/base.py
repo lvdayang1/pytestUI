@@ -74,7 +74,7 @@ class Base():
             try:
                 ele = WebDriverWait(self.driver, self.timeout, self.t).until(EC.presence_of_element_located(locator))
             except TimeoutException as msg:
-                raise ElementNotFound("定位元素出现超时！！！！，不要盯着报错看了，也不用截图贴群里了，"
+                raise ElementNotFound("定位元素出现超时！！！！"
                                       "先把定位技术学好，别复制粘贴xpath, 请检查你的定位方式，在浏览器先调试成功，观察页面是否正常打开")
             return ele
 

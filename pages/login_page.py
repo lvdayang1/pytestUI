@@ -1,3 +1,4 @@
+import time
 from common.base import Base
 
 
@@ -5,6 +6,8 @@ class LoginPage(Base):
 
     '''登录链接'''
     login_loc = ("link text", u"登录")
+    '''frame'''
+    frame_loc = ("id", "scmloginIframeContent")
     '''账号'''
     username_loc = ("id", "userName")
     '''密码'''
@@ -12,11 +15,16 @@ class LoginPage(Base):
     '''登录按钮'''
     btn_loc = ("id", "login")
     '''登录成功'''
-    success_loc = ("classname", "xl_btn")
+    success_loc = ("class name", "xl_btn")
 
     def click_login_link(self):
         '''点击登录链接'''
         self.click(self.login_loc)
+
+    def switch_frame(self):
+        time.sleep(5)
+        self.switch_iframe(self.frame_loc)
+        print("哈哈哈，切进去了！！！")
 
     def input_username(self, text):
         self.click(self.username_loc)
@@ -35,8 +43,11 @@ class LoginPage(Base):
         self.click(self.btn_loc)
 
     def lonin_success(self):
-        '''存在消息中心，登录成功'''
-        return self.get_text(self.success_loc)
+        time.sleep(3)
+        '''存在我的管理，登录成功'''
+        text = self.get_text(self.success_loc)
+        print(text)
+        return text
 
 
 
