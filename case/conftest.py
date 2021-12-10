@@ -1,7 +1,5 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-import platform
 from common.oracle import MyDB
 from pages.login_page import LoginPage
 
