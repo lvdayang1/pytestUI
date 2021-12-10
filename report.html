@@ -243,7 +243,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 10-Dec-2021 at 17:16:32 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
+    <p>Report generated on 10-Dec-2021 at 17:24:45 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -262,8 +262,8 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <td>Python</td>
         <td>3.7.2</td></tr></table>
     <h2>Summary</h2>
-    <p>1 tests ran in 17.53 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">0 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">1 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <p>1 tests ran in 21.03 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">1 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -274,15 +274,15 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
           <th class="sortable links" col="links">Links</th></tr>
         <tr hidden="true" id="not-found-message">
           <th colspan="4">No results found. Try to check the filters</th></tr></thead>
-      <tbody class="failed results-table-row">
+      <tbody class="passed results-table-row">
         <tr>
-          <td class="col-result">Failed</td>
+          <td class="col-result">Passed</td>
           <td class="col-name">case/test_login.py::TestUserLoginPage::test_login_1</td>
-          <td class="col-duration">16.64</td>
+          <td class="col-duration">20.38</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log">self = &lt;case.test_login.TestUserLoginPage object at 0x000000000386CF60&gt;, loginPage = &lt;pages.login_page.LoginPage object at 0x000000000B2504E0&gt;<br/><br/>    def test_login_1(self, loginPage: LoginPage):<br/>        &#x27;&#x27;&#x27;&#x27;&#x27;&#x27;<br/>        loginPage.click_login_link()<br/>        loginPage.switch_frame()<br/>        loginPage.input_username(&quot;745292340@qq.com&quot;)<br/>        loginPage.input_password(&quot;111111&quot;)<br/>        loginPage.click_login_btn()<br/>        loginPage.default_content()<br/>    <br/>&gt;       assert loginPage.success_loc()<br/><span class="error">E       TypeError: &#x27;tuple&#x27; object is not callable</span><br/><br/>case\test_login.py:20: TypeError<br/> ------------------------------Captured stdout call------------------------------ <br/>正在定位元素信息：定位方式-&gt;link text,value值-&gt;登录
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>正在定位元素信息：定位方式-&gt;link text,value值-&gt;登录
 正在定位元素信息：定位方式-&gt;id,value值-&gt;scmloginIframeContent
 哈哈哈，切进去了！！！
 正在定位元素信息：定位方式-&gt;id,value值-&gt;userName
@@ -292,4 +292,6 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 正在定位元素信息：定位方式-&gt;id,value值-&gt;password
 正在定位元素信息：定位方式-&gt;id,value值-&gt;password
 正在定位元素信息：定位方式-&gt;id,value值-&gt;login
+正在定位元素信息：定位方式-&gt;class name,value值-&gt;xl_btn
+我的管理
 <br/></div></td></tr></tbody></table></body></html>
