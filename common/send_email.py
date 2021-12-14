@@ -7,11 +7,11 @@ import threading
 import readConfig as readConfig
 from common.log import Logg
 import zipfile
-import glob
 
 localReadConfig = readConfig.ReadConfig()
 
 class Email:
+
     def __init__(self):
         global host, user, password, port, sender, title, content
         host = localReadConfig.get_email("mail_host")
@@ -20,7 +20,11 @@ class Email:
         port = localReadConfig.get_email("mail_port")
         sender = localReadConfig.get_email("sender")
         title = localReadConfig.get_email("subject")
-        content = localReadConfig.get_email("content")
+        # content = localReadConfig.get_email("content")
+        resulefilepath = os.path.join(readConfig.proDir, "case/result", "result.txt")
+        resulefile = open(resulefilepath)
+        content = resulefile.read()
+        # print(content)
         self.value = localReadConfig.get_email("receiver")
         self.receiver = []
         # get receiver list
@@ -47,7 +51,7 @@ class Email:
         if self.check_file():
             # 获取report.html目录
             reportpath = self.log.get_result_path()
-            zippath = os.path.join(readConfig.proDir, "result", "test.zip")
+            zippath = os.path.join(readConfig.proDir, "case/result", "test.zip")
             #print(zippath)
             # zip file
             # 遍历目录下的所有文件
@@ -115,4 +119,4 @@ class MyEmail:
 
 if __name__ == "__main__":
     email = MyEmail.get_email()
-    #Email().config_file()
+

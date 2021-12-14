@@ -1,4 +1,4 @@
-from datetime import datetime
+import time
 import pytest
 from common import send_email
 
