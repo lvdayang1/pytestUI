@@ -10,12 +10,12 @@ class Logg:
         global logPath, resultPath, proDir
         proDir = readConfig.proDir
         #创建结果文件夹
-        resultPath = os.path.join(proDir, "result")
+        resultPath = os.path.join(proDir, "case")
         #os.path.exists()方法可以直接判断文件/文件夹是否存在
         if not os.path.exists(resultPath):
             os.mkdir(resultPath)
         #os.path.join拼接
-        logPath = os.path.join(resultPath, str(datetime.now().strftime("%Y%m%d%H%M%S")))
+        logPath = os.path.join(resultPath)
         if not os.path.exists(logPath):
             os.mkdir(logPath)
         #使用接口debug，info，warn，error，critical之前必须创建Logger实例
@@ -52,3 +52,7 @@ class Logg:
     def get_result_path(self):
         #获取测试结果路径
         return logPath
+
+if __name__ == '__main__':
+    log = Logg()
+    print(log.get_report_path())

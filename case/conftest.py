@@ -3,7 +3,6 @@ from selenium import webdriver
 from common.oracle import MyDB
 from pages.login_page import LoginPage
 
-
 @pytest.fixture(scope="session", name="driver")
 def browser():
     driver = webdriver.Chrome()
@@ -11,7 +10,6 @@ def browser():
     yield driver
     # quit是退出浏览器
     driver.quit()
-
 
 @pytest.fixture(scope="session")
 def base_url():

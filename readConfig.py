@@ -1,13 +1,14 @@
 import os
 import codecs
 import configparser
+import re
 #获取配置文件路径
 proDir = os.path.split(os.path.realpath(__file__))[0]
 configPath = os.path.join(proDir, "config.ini")
 
 class ReadConfig:
     def __init__(self):
-        fd = open(configPath)
+        fd = open(configPath, encoding='utf-8')
         data = fd.read()
         #注释主要设置编码格式utf-8
         #  所谓BOM，全称是Byte Order Mark，它是一个Unicode字符，通常出现在文本的开头，

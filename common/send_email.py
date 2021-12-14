@@ -1,47 +1,118 @@
+import os
 import smtplib
-import os.path as pth
-import time
-from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
-from email.header import Header
+from email.mime.text import MIMEText
+from datetime import datetime
+import threading
+import readConfig as readConfig
+from common.log import Logg
+import zipfile
+import glob
+
+localReadConfig = readConfig.ReadConfig()
+
+class Email:
+    def __init__(self):
+        global host, user, password, port, sender, title, content
+        host = localReadConfig.get_email("mail_host")
+        user = localReadConfig.get_email("mail_user")
+        password = localReadConfig.get_email("mail_pass")
+        port = localReadConfig.get_email("mail_port")
+        sender = localReadConfig.get_email("sender")
+        title = localReadConfig.get_email("subject")
+        content = localReadConfig.get_email("content")
+        self.value = localReadConfig.get_email("receiver")
+        self.receiver = []
+        # get receiver list
+        for n in str(self.value).split(","):
+            self.receiver.append(n)
+        # defined email subject
+        date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.subject = title + " " + date
+        self.log = Logg()
+        self.logger = Logg().get_logger()
+        self.msg = MIMEMultipart('mixed')
+
+    def config_header(self):
+        self.msg['subject'] = self.subject
+        self.msg['from'] = sender
+        self.msg['to'] = ",".join(self.receiver)
+
+    def config_content(self):
+        content_plain = MIMEText(content, 'plain', 'utf-8')
+        self.msg.attach(content_plain)
+
+    def config_file(self):
+        # if the file content is not null, then config the email file
+        if self.check_file():
+            # 获取report.html目录
+            reportpath = self.log.get_result_path()
+            zippath = os.path.join(readConfig.proDir, "case", "test.zip")
+            #print(zippath)
+            # zip file
+            # 遍历目录下的所有文件
+            filelist = []
+            list1 = os.listdir(reportpath)
+            for file1 in list1:
+                path = os.path.join(reportpath, file1)
+                if os.path.isfile(path):
+                    filelist.append(path)
+                else:
+                    list2 = os.listdir(path)
+                    for file2 in list2:
+                        path2 = os.path.join(path, file2)
+                        if os.path.isfile(path2):
+                            filelist.append(path2)
+            f = zipfile.ZipFile(zippath, 'w', zipfile.ZIP_DEFLATED)
+            for file in filelist:
+                # print(file)
+                if r'report.html' in file or r'style.css' in file:
+                    f.write(file)
+            f.close()
+            reportfile = open(zippath, 'rb').read()
+            filehtml = MIMEText(reportfile, 'base64', 'utf-8')
+            filehtml['Content-Type'] = 'application/octet-stream'
+            filehtml['Content-Disposition'] = 'attachment; filename="test.zip"'
+            self.msg.attach(filehtml)
+
+    def check_file(self):
+        reportpath = self.log.get_report_path()
+        if os.path.isfile(reportpath) and not os.stat(reportpath) == 0:
+            return True
+        else:
+            return False
+
+    def send_email(self):
+        self.config_header()
+        self.config_content()
+        self.config_file()
+        try:
+            smtp = smtplib.SMTP()
+            smtp.connect(host)
+            smtp.login(user, password)
+            smtp.sendmail(sender, self.receiver, self.msg.as_string())
+            smtp.quit()
+            self.logger.info("The test report has send to developer by email.")
+        except Exception as ex:
+            self.logger.error(str(ex))
+
+class MyEmail:
+    email = None
+    mutex = threading.Lock()
+
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def get_email():
+
+        if MyEmail.email is None:
+            MyEmail.mutex.acquire()
+            MyEmail.email = Email()
+            MyEmail.mutex.release()
+        return MyEmail.email
 
 
-def sendEmail(title, from_name, from_address, to_address, serverport, serverip, username, password):
-    msg = MIMEMultipart()
-    msg['Subject'] = Header(title, 'utf-8')
-    # 这里的to_address只用于显示，必须是一个string
-    msg['To'] = ','.join(to_address)
-    msg['From'] = from_name
-    # 添加附件地址
-    part = MIMEApplication(open(r'E:\py\szass_proposal\Result\result.html', 'rb').read())
-    part.add_header('Content-Disposition', 'attachment', filename="result.html")  # 发送文件名称
-    msg.attach(part)
-
-    try:
-        s = smtplib.SMTP_SSL(serverip, serverport)
-        s.login(username, password)
-        # 这里的to_address是真正需要发送的到的mail邮箱地址需要的是一个list
-        s.sendmail(from_address, to_address, msg.as_string())
-        print('%s----发送邮件成功' % time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-    except Exception as err:
-        print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-        print(err)
-#()HEFEN_D = pth.abspath(pth.dirname(__file__))
-
-def send_email():
-    TO = ['yanglv@irissz.com']
-    config = {
-        "from": "yanglv@irissz.com",
-        "from_name": '吕洋',
-        "to": TO,
-        "serverip": "smtp.exmail.qq.com",
-        "serverport": "465",
-        "username": "yanglv@irissz.com",
-        "password": "******"  # QQ邮箱的密码
-    }
-    now = time.strftime('%Y-%m-%d-%H_%M_%S', time.localtime(time.time()))
-    title = "iris自动化测试报告" + now
-    sendEmail(title, config['from_name'], config['from'], config['to'], config['serverport'], config['serverip'],
-              config['username'], config['password'])
-
-#send_email()
+if __name__ == "__main__":
+    email = MyEmail.get_email()
+    #Email().config_file()
