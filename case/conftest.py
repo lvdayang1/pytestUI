@@ -3,11 +3,27 @@ import pytest
 from selenium import webdriver
 from common.oracle import MyDB
 from pages.login_page import LoginPage
+from selenium.webdriver.chrome.options import Options
 
+# 可视化打开浏览器
+# @pytest.fixture(scope="session", name="driver")
+# def browser():
+#     driver = webdriver.Chrome()
+#     driver.maximize_window()
+#     yield driver
+#     # quit是退出浏览器
+#     driver.quit()
+
+# 后台打开浏览器
 @pytest.fixture(scope="session", name="driver")
 def browser():
-    driver = webdriver.Chrome()
-    driver.maximize_window()
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('window-size=1920,1080')
+    driver = webdriver.Chrome(chrome_options=chrome_options)
     yield driver
     # quit是退出浏览器
     driver.quit()
@@ -29,8 +45,8 @@ def loginPage(driver, base_url):
     login = LoginPage(driver, base_url)
     return login
 
+# 收集测试结果
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
-    '''收集测试结果'''
     # print(terminalreporter.stats)
     total = terminalreporter._numcollected
     passed= len([i for i in terminalreporter.stats.get('passed', []) if i.when != 'teardown'])
