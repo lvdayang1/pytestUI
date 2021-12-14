@@ -10,7 +10,7 @@ class Logg:
         global logPath, resultPath, proDir
         proDir = readConfig.proDir
         #创建结果文件夹
-        resultPath = os.path.join(proDir)
+        resultPath = os.path.join(proDir, 'result')
         #os.path.exists()方法可以直接判断文件/文件夹是否存在
         if not os.path.exists(resultPath):
             os.mkdir(resultPath)

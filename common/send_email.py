@@ -47,7 +47,7 @@ class Email:
         if self.check_file():
             # 获取report.html目录
             reportpath = self.log.get_result_path()
-            zippath = os.path.join(readConfig.proDir, "test.zip")
+            zippath = os.path.join(readConfig.proDir, "result", "test.zip")
             #print(zippath)
             # zip file
             # 遍历目录下的所有文件
