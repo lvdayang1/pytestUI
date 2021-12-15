@@ -13,18 +13,13 @@ localReadConfig = readConfig.ReadConfig()
 class Email:
 
     def __init__(self):
-        global host, user, password, port, sender, title, content
+        global host, user, password, port, sender, title
         host = localReadConfig.get_email("mail_host")
         user = localReadConfig.get_email("mail_user")
         password = localReadConfig.get_email("mail_pass")
         port = localReadConfig.get_email("mail_port")
         sender = localReadConfig.get_email("sender")
         title = localReadConfig.get_email("subject")
-        # content = localReadConfig.get_email("content")
-        resulefilepath = os.path.join(readConfig.proDir, "case/result", "result.txt")
-        resulefile = open(resulefilepath)
-        content = resulefile.read()
-        # print(content)
         self.value = localReadConfig.get_email("receiver")
         self.receiver = []
         # get receiver list
@@ -43,7 +38,7 @@ class Email:
         self.msg['to'] = ",".join(self.receiver)
 
     def config_content(self):
-        content_plain = MIMEText(content, 'plain', 'utf-8')
+        content_plain = MIMEText(self.content, 'plain', 'utf-8')
         self.msg.attach(content_plain)
 
     def config_file(self):
@@ -51,7 +46,7 @@ class Email:
         if self.check_file():
             # 获取report.html目录
             reportpath = self.log.get_result_path()
-            zippath = os.path.join(readConfig.proDir, "case/result", "test.zip")
+            zippath = os.path.join(readConfig.proDir, "result", "test.zip")
             #print(zippath)
             # zip file
             # 遍历目录下的所有文件
@@ -88,8 +83,11 @@ class Email:
 
     def send_email(self):
         self.config_header()
-        self.config_content()
         self.config_file()
+        resulefilepath = os.path.join(readConfig.proDir, "result", "result.txt")
+        resulefile = open(resulefilepath)
+        self.content = resulefile.read()
+        self.config_content()
         try:
             smtp = smtplib.SMTP()
             smtp.connect(host)

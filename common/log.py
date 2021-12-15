@@ -10,7 +10,7 @@ class Logg:
         global logPath, resultPath, proDir
         proDir = readConfig.proDir
         #创建结果文件夹
-        resultPath = os.path.join(proDir, 'case/result')
+        resultPath = os.path.join(proDir, 'result')
         #os.path.exists()方法可以直接判断文件/文件夹是否存在
         if not os.path.exists(resultPath):
             os.mkdir(resultPath)
@@ -24,7 +24,7 @@ class Logg:
         self.logger.setLevel(logging.INFO)
 
         # Handler 处理器，将（记录器产生的）日志记录发送至合适的目的地
-        handler = logging.FileHandler(os.path.join(proDir,"case/result/output.log"),encoding="utf-8")
+        handler = logging.FileHandler(os.path.join(proDir,"result/output.log"),encoding="utf-8")
         # Formatter 格式化器，指明了最终输出中日志记录的布局
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         #使用Formatter对象设置日志信息最后的规则、结构和内容，默认的时间格式为%Y-%m-%d %H:%M:%S
