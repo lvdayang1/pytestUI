@@ -118,5 +118,5 @@ class MyEmail:
 
 
 if __name__ == "__main__":
-    email = MyEmail.get_email()
-
+    # email = MyEmail.get_email()
+    Email().send_email()

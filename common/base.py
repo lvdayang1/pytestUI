@@ -34,7 +34,7 @@ class Base():
         self.base_url = base_url
 
     def open(self, url):
-        '''跟get方法一样，这里支持相对路径url'''
+        '''跟get方法一样'''
         self.driver.get(url)
         #self.driver.get(self.base_url + url)
 
