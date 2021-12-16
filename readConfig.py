@@ -23,7 +23,7 @@ class ReadConfig:
         #创建对象
         self.cf = configparser.ConfigParser()
         #读取配置
-        self.cf.read(configPath)
+        self.cf.read(configPath, encoding='utf-8')
 
     #获取对应配置信息
     def get_http(self, name):
