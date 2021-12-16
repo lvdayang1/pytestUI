@@ -6,27 +6,27 @@ from pages.login_page import LoginPage
 from selenium.webdriver.chrome.options import Options
 
 # 可视化打开浏览器
-# @pytest.fixture(scope="session", name="driver")
-# def browser():
-#     driver = webdriver.Chrome()
-#     driver.maximize_window()
-#     yield driver
-#     # quit是退出浏览器
-#     driver.quit()
-
-# 后台打开浏览器
 @pytest.fixture(scope="session", name="driver")
 def browser():
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('window-size=1920,1080')
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome()
+    driver.maximize_window()
     yield driver
     # quit是退出浏览器
     driver.quit()
+
+# 后台打开浏览器
+# @pytest.fixture(scope="session", name="driver")
+# def browser():
+#     chrome_options = Options()
+#     chrome_options.add_argument('--headless')
+#     chrome_options.add_argument('--no-sandbox')
+#     chrome_options.add_argument('--disable-gpu')
+#     chrome_options.add_argument('--disable-dev-shm-usage')
+#     chrome_options.add_argument('window-size=1920,1080')
+#     driver = webdriver.Chrome(chrome_options=chrome_options)
+#     yield driver
+#     # quit是退出浏览器
+#     driver.quit()
 
 @pytest.fixture(scope="session")
 def base_url():

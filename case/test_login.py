@@ -1,14 +1,13 @@
-from pages.login_page import LoginPage
 import pytest
 
 
 class TestUserLoginPage():
 
     @pytest.fixture(autouse=True)
-    def open_register(self, loginPage: LoginPage):
+    def open_page(self, loginPage):
         loginPage.open("https://test.innocity.com")
 
-    def test_login_1(self, loginPage: LoginPage):
+    def test_login_1(self, loginPage):
         ''''''
         loginPage.click_login_link()
         loginPage.switch_frame()
